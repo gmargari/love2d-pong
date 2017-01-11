@@ -16,6 +16,8 @@ function love.load()
             y = 0,
             speed = 300,  -- pixels/sec
         },
+        up_button = 'w',
+        down_button = 's',
         up_pressed = false,
         down_pressed = false
     }
@@ -27,6 +29,8 @@ function love.load()
             y = 0,
             speed = 300
         },
+        up_button = 'up',
+        down_button = 'down',
         up_pressed = false,
         down_pressed = false
     }
@@ -193,10 +197,10 @@ end
 -- # key_pressed_or_released ()
 -- #============================================================================
 function key_pressed_or_released(key, pressed)
-    if key == 'w' then        p1.up_pressed = pressed
-    elseif key == 's' then    p1.down_pressed = pressed
-    elseif key == 'up' then   p2.up_pressed = pressed
-    elseif key == 'down' then p2.down_pressed = pressed end
+    if key == p1.up_button then       p1.up_pressed = pressed
+    elseif key == p1.down_button then p1.down_pressed = pressed
+    elseif key == p2.up_button then   p2.up_pressed = pressed
+    elseif key == p2.down_button then p2.down_pressed = pressed end
 end
 
 -- #============================================================================
