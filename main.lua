@@ -89,6 +89,15 @@ function love.update(dt)
     update_player_position(p1, dt)
     update_player_position(p2, dt)
     update_ball_position(ball, dt)
+
+    col = collision_ball_with_vertical_bounds(ball, game)
+    if col == 1 then
+        p2.wins = p2.wins + 1
+        init_ball()
+    elseif col == 2 then
+        p1.wins = p1.wins + 1
+        init_ball()
+    end
 end
 
 -- #============================================================================
@@ -110,7 +119,7 @@ end
 function update_ball_position(b, dt)
     collision_ball_with_pad(b, dt, p1.pad)
     collision_ball_with_pad(b, dt, p2.pad)
-    collision_ball_with_bounds(b, dt, game)
+    collision_ball_with_horizontal_bounds(b, dt, game)
     b.x = b.x + b.speed.x * dt
     b.y = b.y + b.speed.y * dt
 end
@@ -128,17 +137,27 @@ function collision_ball_with_pad(b, dt, p)
 end
 
 -- #============================================================================
--- # collision_ball_with_bounds ()
+-- # collision_ball_with_horizontal_bounds ()
 -- #============================================================================
-function collision_ball_with_bounds(b, dt, game)
+function collision_ball_with_horizontal_bounds(b, dt, game)
     new_b = b
     new_b.x = b.x + b.speed.x * dt
     new_b.y = b.y + b.speed.y * dt
-    if new_b.x < 0 or new_b.x + new_b.w > game.w  then
-        b.speed.x = b.speed.x * -1
-    end
     if new_b.y < 0 or new_b.y + new_b.h > game.h  then
         b.speed.y = b.speed.y * -1
+    end
+end
+
+-- #============================================================================
+-- # collision_ball_with_horizontal_bounds ()
+-- #============================================================================
+function collision_ball_with_vertical_bounds(b, game)
+    if b.x < 0 then
+        return 1
+    elseif b.x + b.w > game.w  then
+        return 2
+    else
+        return nil
     end
 end
 
