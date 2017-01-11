@@ -20,7 +20,8 @@ function love.load()
         up_button = 'w',
         down_button = 's',
         up_pressed = false,
-        down_pressed = false
+        down_pressed = false,
+        wins = 0,
     }
 
     p2 = {
@@ -29,12 +30,13 @@ function love.load()
             h = 60,
             x = nil,
             y = nil,
-            speed = nil
+            speed = nil,
         },
         up_button = 'up',
         down_button = 'down',
         up_pressed = false,
-        down_pressed = false
+        down_pressed = false,
+        wins = 0,
     }
 
     ball = {
@@ -44,7 +46,7 @@ function love.load()
         y = 0,
         speed = {
             x = nil,
-            y = nil
+            y = nil,
         }
     }
 
@@ -171,6 +173,9 @@ function draw_gui(p)
         0     , game.h
     }
     love.graphics.polygon('line', vertices)
+    score_x = game.w
+    score_y = game.h + 2
+    love.graphics.printf(p1.wins.." : "..p2.wins, 0, score_y, score_x, 'center')
 end
 
 -- #============================================================================
