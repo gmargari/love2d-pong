@@ -82,6 +82,7 @@ end
 -- #============================================================================
 function love.update(dt)
     if game_is_paused then
+        love.graphics.print('Game paused', 100, 100)
         return
     end
 
@@ -226,7 +227,9 @@ function key_pressed_or_released(key, pressed)
     if key == p1.up_button then       p1.up_pressed = pressed
     elseif key == p1.down_button then p1.down_pressed = pressed
     elseif key == p2.up_button then   p2.up_pressed = pressed
-    elseif key == p2.down_button then p2.down_pressed = pressed end
+    elseif key == p2.down_button then p2.down_pressed = pressed
+    elseif key == 'p' and pressed then game_is_paused = not game_is_paused
+    end
 end
 
 -- #============================================================================
