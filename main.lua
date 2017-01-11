@@ -150,10 +150,10 @@ end
 -- # key_pressed_or_released ()
 -- #============================================================================
 function key_pressed_or_released(key, pressed)
-    if key == 'up' then       p1.up_pressed = pressed
-    elseif key == 'down' then p1.down_pressed = pressed
-    elseif key == 'w' then    p2.up_pressed = pressed
-    elseif key == 's' then    p2.down_pressed = pressed end
+    if key == 'w' then        p1.up_pressed = pressed
+    elseif key == 's' then    p1.down_pressed = pressed
+    elseif key == 'up' then   p2.up_pressed = pressed
+    elseif key == 'down' then p2.down_pressed = pressed end
 end
 
 -- #============================================================================
