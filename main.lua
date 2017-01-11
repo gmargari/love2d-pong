@@ -8,50 +8,71 @@ function love.load()
         w = 300,
         h = 300
     }
+
     p1 = {
         pad = {
             w = 30,
             h = 100,
-            x = 0,
-            y = 0,
-            speed = 300,  -- pixels/sec
+            x = nil,
+            y = nil,
+            speed = nil,  -- pixels/sec
         },
         up_button = 'w',
         down_button = 's',
         up_pressed = false,
         down_pressed = false
     }
+
     p2 = {
         pad = {
             w = 10,
             h = 60,
-            x = 0,
-            y = 0,
-            speed = 300
+            x = nil,
+            y = nil,
+            speed = nil
         },
         up_button = 'up',
         down_button = 'down',
         up_pressed = false,
         down_pressed = false
     }
+
     ball = {
         w = 15,
         h = 15,
         x = 0,
         y = 0,
         speed = {
-            x = 30,
-            y = 20
+            x = nil,
+            y = nil
         }
     }
 
-    -- initialize positions
+    init_players()
+    init_ball()
+end
+
+-- #============================================================================
+-- # init_players ()
+-- #============================================================================
+function init_players()
     p1.pad.x = 0
     p1.pad.y = game.h / 2 - p1.pad.h / 2
+    p1.pad.speed = 300  -- pixels/sec
+
     p2.pad.x = game.w - p2.pad.w
     p2.pad.y = game.h / 2 - p2.pad.h / 2
+    p2.pad.speed = 300
+end
+
+-- #============================================================================
+-- # init_ball ()
+-- #============================================================================
+function init_ball()
     ball.x = game.w / 2 - ball.h / 2
     ball.y = game.h / 2 - ball.w / 2
+    ball.speed.x = 30
+    ball.speed.y = 20
 end
 
 -- #============================================================================
