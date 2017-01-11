@@ -6,7 +6,8 @@ printf = function(s,...) return io.write(s:format(...)) end
 function love.load()
     game = {
         w = 300,
-        h = 300
+        h = 300,
+        ball_speed = 100,
     }
 
     p1 = {
@@ -73,8 +74,22 @@ end
 function init_ball()
     ball.x = game.w / 2 - ball.h / 2
     ball.y = game.h / 2 - ball.w / 2
-    ball.speed.x = 30
-    ball.speed.y = 20
+
+    -- random x and y speed
+    min_x = 0.3 -- avoid ball directions almost vertical
+    rnd = min_x + love.math.random() * (1 - min_x)
+    ball.speed.x = rnd * game.ball_speed
+    ball.speed.y = (1 - rnd) * game.ball_speed
+
+    -- random x and y direction
+    coin = love.math.random(0, 1)
+    if coin == 1 then
+        ball.speed.x = ball.speed.x * -1
+    end
+    coin = love.math.random(0, 1)
+    if coin == 1 then
+        ball.speed.y = ball.speed.y * -1
+    end
 end
 
 -- #============================================================================
