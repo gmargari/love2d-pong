@@ -35,8 +35,10 @@ function love.load()
         h = 15,
         x = 0,
         y = 0,
-        speed = 300,
-        direction = 0  -- should be 0 - 360 or something like that (?)
+        speed = {
+            x = 30,
+            y = 20
+        }
     }
 
     -- initialize positions
@@ -78,7 +80,48 @@ end
 -- # update_ball_position ()
 -- #============================================================================
 function update_ball_position(b, dt)
+    collision_ball_with_pad(b, dt, p1.pad)
+    collision_ball_with_pad(b, dt, p2.pad)
+    collision_ball_with_bounds(b, dt, game)
+    b.x = b.x + b.speed.x * dt
+    b.y = b.y + b.speed.y * dt
+end
 
+-- #============================================================================
+-- # collision_ball_with_pad ()
+-- #============================================================================
+function collision_ball_with_pad(b, dt, p)
+    new_b = b
+    new_b.x = b.x + b.speed.x * dt
+    new_b.y = b.y + b.speed.y * dt
+    if collision(new_b, p) then
+        b.speed.x = b.speed.x * -1
+    end
+end
+
+-- #============================================================================
+-- # collision_ball_with_bounds ()
+-- #============================================================================
+function collision_ball_with_bounds(b, dt, game)
+    new_b = b
+    new_b.x = b.x + b.speed.x * dt
+    new_b.y = b.y + b.speed.y * dt
+    if new_b.x < 0 or new_b.x + new_b.w > game.w  then
+        b.speed.x = b.speed.x * -1
+    end
+    if new_b.y < 0 or new_b.y + new_b.h > game.h  then
+        b.speed.y = b.speed.y * -1
+    end
+end
+
+-- #============================================================================
+-- # collision ()
+-- #============================================================================
+function collision(r1, r2)
+    return r1.x < r2.x + r2.w and
+           r2.x < r1.x + r1.w and
+           r1.y < r2.y + r2.h and
+           r2.y < r1.y + r1.h
 end
 
 -- #============================================================================
